@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="[darkmode ? appDark : appLight]">
     <div class="container" :class="{ darkBg: darkmode }">
       <Header
         v-on:change-light-theme="changeLightTheme"
@@ -17,6 +17,13 @@
         v-on:show-all="showAllTodos"
         v-on:save-todos="saveTodos"
       />
+      <div class="attribution" :class="{attributionLight: !darkmode}">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by
+        <a href="https://github.com/oliversteidel">Oliver Steidel</a>.
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +47,9 @@ export default {
     return {
       todos: [],
       todosCopy: [],
-      darkmode: false,
+      darkmode: true,
+      appDark: "app-dark",
+      appLight: "app-light",
     };
   },
   mounted() {
@@ -149,6 +158,7 @@ li + li {
 }
 
 .container {
+  position: relative;
   width: 100vw;
   max-width: 1440px;
   margin: 0 auto;
@@ -178,6 +188,14 @@ li + li {
     background-image: url("./assets/bg-desktop-dark.jpg");
     background-size: unset;
   }
+}
+
+.app-dark {
+  background: $dtVeryDarkDesaturatedBlue;
+}
+
+.app-light {
+  background: $ltLightGrayishBlue;
 }
 
 .darkTask {
@@ -214,6 +232,26 @@ li + li {
 
   @media screen and (min-width: $breakpoint) {
     height: 4rem;
+  }
+}
+
+.attribution {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $ltDarkGrayishBlue;
+
+  a {
+    color: $ltVeryLightGrayishBlue;
+  }
+}
+
+.attributionLight {
+  color: $dtVeryDarkGrayishBlue !important;
+
+  a {
+    color: $dtVeryDarkBlue !important;
   }
 }
 </style>
